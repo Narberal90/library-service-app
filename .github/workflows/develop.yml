@@ -3,7 +3,7 @@ name: Flake8 Lint
 on:
   pull_request:
     branches:
-      - develop  # Запускати перевірку при pull request до гілки develop
+      - develop
 
 jobs:
   flake8-lint:
