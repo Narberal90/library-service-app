@@ -14,6 +14,6 @@ class Borrowing(models.Model):
 
     class Meta:
         constraints = [
-            UniqueConstraint(fields=["user", "book",])
+            UniqueConstraint(fields=["user", "book",], name="unique_user_book")
         ]
         verbose_name = "Borrowing"
