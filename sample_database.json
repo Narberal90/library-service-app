@@ -1,0 +1,662 @@
+[
+    {
+        "model": "books.book",
+        "pk": 1,
+        "fields": {
+            "title": "Django for Beginners",
+            "authors": "William S. Vincent",
+            "cover": "Hard",
+            "inventory": 10,
+            "daily_fee": "2.99"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 2,
+        "fields": {
+            "title": "Two Scoops of Django",
+            "authors": "Daniel Roy Greenfeld, Audrey Roy Greenfeld",
+            "cover": "Soft",
+            "inventory": 5,
+            "daily_fee": "1.50"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 3,
+        "fields": {
+            "title": "Python Crash Course",
+            "authors": "Eric Matthes",
+            "cover": "Hard",
+            "inventory": 7,
+            "daily_fee": "3.00"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 4,
+        "fields": {
+            "title": "Fluent Python",
+            "authors": "Luciano Ramalho",
+            "cover": "Soft",
+            "inventory": 15,
+            "daily_fee": "2.00"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 5,
+        "fields": {
+            "title": "Automate the Boring Stuff with Python",
+            "authors": "Al Sweigart",
+            "cover": "Hard",
+            "inventory": 8,
+            "daily_fee": "1.75"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 6,
+        "fields": {
+            "title": "Learning Python",
+            "authors": "Mark Lutz",
+            "cover": "Soft",
+            "inventory": 12,
+            "daily_fee": "2.20"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 7,
+        "fields": {
+            "title": "Effective Python",
+            "authors": "Brett Slatkin",
+            "cover": "Hard",
+            "inventory": 11,
+            "daily_fee": "3.50"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 8,
+        "fields": {
+            "title": "Python Tricks",
+            "authors": "Dan Bader",
+            "cover": "Soft",
+            "inventory": 6,
+            "daily_fee": "1.95"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 9,
+        "fields": {
+            "title": "Head First Python",
+            "authors": "Paul Barry",
+            "cover": "Hard",
+            "inventory": 14,
+            "daily_fee": "2.10"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 10,
+        "fields": {
+            "title": "Think Python",
+            "authors": "Allen B. Downey",
+            "cover": "Soft",
+            "inventory": 9,
+            "daily_fee": "2.50"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 11,
+        "fields": {
+            "title": "Programming Python",
+            "authors": "Mark Lutz",
+            "cover": "Hard",
+            "inventory": 3,
+            "daily_fee": "4.00"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 12,
+        "fields": {
+            "title": "Python Cookbook",
+            "authors": "Davpk Beazley, Brian K. Jones",
+            "cover": "Soft",
+            "inventory": 4,
+            "daily_fee": "3.20"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 13,
+        "fields": {
+            "title": "The Hitchhiker's Gupke to Python",
+            "authors": "Kenneth Reitz, Tanya Schlusser",
+            "cover": "Hard",
+            "inventory": 13,
+            "daily_fee": "2.70"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 14,
+        "fields": {
+            "title": "Test-Driven Development with Python",
+            "authors": "Harry J.W. Percival",
+            "cover": "Soft",
+            "inventory": 7,
+            "daily_fee": "2.35"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 15,
+        "fields": {
+            "title": "Python Machine Learning",
+            "authors": "Sebastian Raschka",
+            "cover": "Hard",
+            "inventory": 9,
+            "daily_fee": "3.60"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 16,
+        "fields": {
+            "title": "Deep Learning with Python",
+            "authors": "Francois Chollet",
+            "cover": "Soft",
+            "inventory": 11,
+            "daily_fee": "2.80"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 17,
+        "fields": {
+            "title": "Introduction to Machine Learning with Python",
+            "authors": "Andreas C. Müller, Sarah Guido",
+            "cover": "Hard",
+            "inventory": 10,
+            "daily_fee": "3.10"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 18,
+        "fields": {
+            "title": "Grokking Algorithms",
+            "authors": "Aditya Bhargava",
+            "cover": "Soft",
+            "inventory": 6,
+            "daily_fee": "1.80"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 19,
+        "fields": {
+            "title": "Python for Data Analysis",
+            "authors": "Wes McKinney",
+            "cover": "Hard",
+            "inventory": 14,
+            "daily_fee": "3.75"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 20,
+        "fields": {
+            "title": "Python in a Nutshell",
+            "authors": "Alex Martelli",
+            "cover": "Soft",
+            "inventory": 5,
+            "daily_fee": "2.60"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 21,
+        "fields": {
+            "title": "Python Pocket Reference",
+            "authors": "Mark Lutz",
+            "cover": "Hard",
+            "inventory": 8,
+            "daily_fee": "1.99"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 22,
+        "fields": {
+            "title": "Data Science from Scratch",
+            "authors": "Joel Grus",
+            "cover": "Soft",
+            "inventory": 10,
+            "daily_fee": "2.85"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 23,
+        "fields": {
+            "title": "Python for Finance",
+            "authors": "Yves Hilpisch",
+            "cover": "Hard",
+            "inventory": 4,
+            "daily_fee": "4.20"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 24,
+        "fields": {
+            "title": "Black Hat Python",
+            "authors": "Justin Seitz",
+            "cover": "Soft",
+            "inventory": 12,
+            "daily_fee": "3.30"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 25,
+        "fields": {
+            "title": "Violent Python",
+            "authors": "TJ O'Connor",
+            "cover": "Hard",
+            "inventory": 7,
+            "daily_fee": "4.00"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 26,
+        "fields": {
+            "title": "Real-World Python",
+            "authors": "Lee Vaughan",
+            "cover": "Soft",
+            "inventory": 15,
+            "daily_fee": "2.50"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 27,
+        "fields": {
+            "title": "Serious Python",
+            "authors": "Julien Danjou",
+            "cover": "Hard",
+            "inventory": 13,
+            "daily_fee": "3.99"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 28,
+        "fields": {
+            "title": "Python 101",
+            "authors": "Michael Driscoll",
+            "cover": "Soft",
+            "inventory": 9,
+            "daily_fee": "1.75"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 29,
+        "fields": {
+            "title": "Python Concurrency with asyncio",
+            "authors": "Matthew Fowler",
+            "cover": "Hard",
+            "inventory": 11,
+            "daily_fee": "3.50"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 30,
+        "fields": {
+            "title": "Mastering Python",
+            "authors": "Rick van Hattem",
+            "cover": "Soft",
+            "inventory": 8,
+            "daily_fee": "2.90"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 31,
+        "fields": {
+            "title": "Clean Code in Python",
+            "authors": "Mariano Anaya",
+            "cover": "Hard",
+            "inventory": 10,
+            "daily_fee": "3.25"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 32,
+        "fields": {
+            "title": "Python Deep Learning",
+            "authors": "Ivan Vasilev",
+            "cover": "Soft",
+            "inventory": 7,
+            "daily_fee": "2.99"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 33,
+        "fields": {
+            "title": "Python High Performance",
+            "authors": "Gabriele Lanaro",
+            "cover": "Hard",
+            "inventory": 6,
+            "daily_fee": "3.10"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 34,
+        "fields": {
+            "title": "Python Testing with pytest",
+            "authors": "Brian Okken",
+            "cover": "Soft",
+            "inventory": 4,
+            "daily_fee": "2.40"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 35,
+        "fields": {
+            "title": "Full Stack Python",
+            "authors": "Matt Makai",
+            "cover": "Hard",
+            "inventory": 12,
+            "daily_fee": "3.80"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 36,
+        "fields": {
+            "title": "Python Programming for the Absolute Beginner",
+            "authors": "Michael Dawson",
+            "cover": "Soft",
+            "inventory": 6,
+            "daily_fee": "1.95"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 37,
+        "fields": {
+            "title": "Expert Python Programming",
+            "authors": "Michał Jaworski",
+            "cover": "Hard",
+            "inventory": 8,
+            "daily_fee": "3.75"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 38,
+        "fields": {
+            "title": "Impractical Python Projects",
+            "authors": "Lee Vaughan",
+            "cover": "Soft",
+            "inventory": 5,
+            "daily_fee": "2.20"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 39,
+        "fields": {
+            "title": "The Quick Python Book",
+            "authors": "Naomi Ceder",
+            "cover": "Hard",
+            "inventory": 14,
+            "daily_fee": "3.00"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 40,
+        "fields": {
+            "title": "Beginning Python",
+            "authors": "Magnus Lie Hetland",
+            "cover": "Soft",
+            "inventory": 9,
+            "daily_fee": "2.80"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "book": 1,
+            "borrow_date": "2024-10-01",
+            "expected_return_date": "2024-10-15",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "book": 2,
+            "borrow_date": "2024-10-05",
+            "expected_return_date": "2024-10-19",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 3,
+        "fields": {
+            "user": 1,
+            "book": 3,
+            "borrow_date": "2024-09-29",
+            "expected_return_date": "2024-10-13",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 4,
+        "fields": {
+            "user": 1,
+            "book": 4,
+            "borrow_date": "2024-10-03",
+            "expected_return_date": "2024-10-17",
+            "actual_return_date": "2024-10-12"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 5,
+        "fields": {
+            "user": 1,
+            "book": 5,
+            "borrow_date": "2024-09-28",
+            "expected_return_date": "2024-10-12",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 6,
+        "fields": {
+            "user": 1,
+            "book": 6,
+            "borrow_date": "2024-10-07",
+            "expected_return_date": "2024-10-21",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 7,
+        "fields": {
+            "user": 1,
+            "book": 7,
+            "borrow_date": "2024-10-01",
+            "expected_return_date": "2024-10-15",
+            "actual_return_date": "2024-10-10"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 8,
+        "fields": {
+            "user": 1,
+            "book": 8,
+            "borrow_date": "2024-10-06",
+            "expected_return_date": "2024-10-20",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 9,
+        "fields": {
+            "user": 1,
+            "book": 9,
+            "borrow_date": "2024-10-02",
+            "expected_return_date": "2024-10-16",
+            "actual_return_date": "2024-10-08"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 10,
+        "fields": {
+            "user": 1,
+            "book": 10,
+            "borrow_date": "2024-09-25",
+            "expected_return_date": "2024-10-09",
+            "actual_return_date": "2024-10-07"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 11,
+        "fields": {
+            "user": 1,
+            "book": 11,
+            "borrow_date": "2024-10-08",
+            "expected_return_date": "2024-10-22",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 12,
+        "fields": {
+            "user": 1,
+            "book": 12,
+            "borrow_date": "2024-10-04",
+            "expected_return_date": "2024-10-18",
+            "actual_return_date": "2024-10-16"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 13,
+        "fields": {
+            "user": 1,
+            "book": 13,
+            "borrow_date": "2024-10-07",
+            "expected_return_date": "2024-10-21",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 14,
+        "fields": {
+            "user": 1,
+            "book": 14,
+            "borrow_date": "2024-09-30",
+            "expected_return_date": "2024-10-14",
+            "actual_return_date": "2024-10-09"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 15,
+        "fields": {
+            "user": 1,
+            "book": 15,
+            "borrow_date": "2024-10-09",
+            "expected_return_date": "2024-10-23",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 16,
+        "fields": {
+            "user": 1,
+            "book": 16,
+            "borrow_date": "2024-10-10",
+            "expected_return_date": "2024-10-24",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 17,
+        "fields": {
+            "user": 1,
+            "book": 17,
+            "borrow_date": "2024-09-27",
+            "expected_return_date": "2024-10-11",
+            "actual_return_date": "2024-10-05"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 18,
+        "fields": {
+            "user": 1,
+            "book": 18,
+            "borrow_date": "2024-10-03",
+            "expected_return_date": "2024-10-17",
+            "actual_return_date": null
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 19,
+        "fields": {
+            "user": 1,
+            "book": 19,
+            "borrow_date": "2024-09-29",
+            "expected_return_date": "2024-10-13",
+            "actual_return_date": "2024-10-11"
+        }
+    },
+    {
+        "model": "borrowings.borrowing",
+        "pk": 20,
+        "fields": {
+            "user": 1,
+            "book": 20,
+            "borrow_date": "2024-10-02",
+            "expected_return_date": "2024-10-16",
+            "actual_return_date": null
+        }
+    }
+]
