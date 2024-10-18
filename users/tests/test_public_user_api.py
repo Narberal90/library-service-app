@@ -38,7 +38,6 @@ class PublicUserApiTests(TestCase):
     def test_user_exists(self):
         """Test creating a user that already exists fails"""
         payload = {
-            "username": "userTest",
             "email": "user@test.com",
             "password": "password"
         }
@@ -63,7 +62,6 @@ class PublicUserApiTests(TestCase):
     def test_create_token_for_user(self):
         """Test that a token is created for the user"""
         payload = {
-            "username": "testname",
             "email": "test@name.com",
             "password": "test123",
         }
@@ -73,3 +71,32 @@ class PublicUserApiTests(TestCase):
         self.assertIn("access", resp.data)
         self.assertIn("refresh", resp.data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+
+    def test_create_token_invalid_credentials(self):
+        """Test that token is not created if invalid credentials are given"""
+        create_user(
+            email="test@test.com", password="test123"
+        )
+        payload = {
+            "email": "test@test.com",
+            "password": "wrong",
+        }
+
+        resp = self.client.post(TOKEN_URL, payload)
+
+        self.assertNotIn("access", resp.data)
+        self.assertNotIn("refresh", resp.data)
+        self.assertEqual(resp.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_create_token_missing_filed(self):
+        """Test that email and password are required"""
+        resp = self.client.post(TOKEN_URL, {"email": 1, "password": ""})
+        self.assertNotIn("access", resp.data)
+        self.assertNotIn("refresh", resp.data)
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_retrieve_user_unauthorized(self):
+        """Test that authentication is required for users"""
+        res = self.client.get(ME_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
