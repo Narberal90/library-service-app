@@ -1,8 +1,15 @@
+import uuid
 from decimal import Decimal
 
+import pathlib
 from django.db import models
+from django.utils.text import slugify
 from rest_framework.exceptions import ValidationError
 
+
+def book_image_path(instance: "Book", filename: str) -> pathlib.Path:
+    filename = f"{slugify(instance.title)}-{uuid.uuid4()}" + pathlib.Path(filename).suffix
+    return pathlib.Path("upload/plays") / pathlib.Path(filename)
 
 class Book(models.Model):
     class CoverChoice(models.TextChoices):
@@ -14,6 +21,7 @@ class Book(models.Model):
     cover = models.CharField(max_length=32, choices=CoverChoice, default=CoverChoice.HARD)
     inventory = models.IntegerField()
     daily_fee = models.DecimalField(decimal_places=2, max_digits=6)
+    image = models.ImageField(null=True, upload_to=book_image_path)
 
     def __str__(self):
         return f"{self.title} ({self.authors}), available: {self.inventory}"
@@ -24,7 +32,7 @@ class Book(models.Model):
             (inventory, "inventory"),
             (daily_fee, "daily_fee"),
         ]:
-            if not 0 >= num_attr_value:
+            if not 0 <= num_attr_value:
                 raise ValidationError(
                     f"{num_attr_name} "
                     "number value must be greater than equal 0. "
