@@ -32,7 +32,7 @@ class Book(models.Model):
             (inventory, "inventory"),
             (daily_fee, "daily_fee"),
         ]:
-            if not 0 <= num_attr_value:
+            if 0 > num_attr_value:
                 raise ValidationError(
                     f"{num_attr_name} "
                     "number value must be greater than equal 0. "
