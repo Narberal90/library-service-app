@@ -25,12 +25,4 @@ class BookImageSerializer(serializers.ModelSerializer):
 class BookRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = [
-            "id",
-            "title",
-            "authors",
-            "cover",
-            "inventory",
-            "daily_fee",
-            "image"
-        ]
+        fields = ["id", "title", "authors", "cover", "inventory", "daily_fee", "image"]

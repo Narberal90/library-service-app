@@ -6,10 +6,8 @@ from users.managers.user_manager import UserManager
 
 
 class User(AbstractUser):
-    """User model."""
-
     username = None
-    email = models.EmailField(_("email address"), unique=True)
+    email = models.EmailField(_("Email address"), unique=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
