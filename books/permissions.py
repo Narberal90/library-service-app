@@ -10,3 +10,18 @@ class IsAdminOrIfAuthenticatedReadOnly(BasePermission):
             )
             or request.user.is_staff
         )
+
+
+from rest_framework.permissions import SAFE_METHODS, BasePermission
+
+
+class IsAdminOrIfAuthenticatedPostAndReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        return (
+            (
+                (request.method in SAFE_METHODS or request.method == "POST")
+                and request.user.is_authenticated
+            )
+            or request.user.is_staff
+
+        )
