@@ -3,7 +3,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from books.models import Book
-from books.serializers import BookSerializer, BookImageSerializer, BookRetrieveSerializer
+from books.serializers import (
+    BookSerializer,
+    BookImageSerializer,
+    BookRetrieveSerializer,
+)
 
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -20,11 +24,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
         return BookSerializer
 
-    @action(
-        methods=["POST"],
-        detail=True,
-        url_path="upload-image"
-    )
+    @action(methods=["POST"], detail=True, url_path="upload-image")
     def upload_image(self, request, pk=None) -> Response:
         book = self.get_object()
         serializer = self.get_serializer(book, data=request.data)
@@ -35,4 +35,3 @@ class BookViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-

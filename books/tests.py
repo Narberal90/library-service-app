@@ -22,7 +22,7 @@ class TestBookAdmin(TestCase):
             "authors": "F. Scott Fitzgerald",
             "cover": "Hard",
             "inventory": 5,
-            "daily_fee": "2.50"
+            "daily_fee": "2.50",
         }
         self.book = Book.objects.create(**self.book_payload)
 
@@ -32,7 +32,7 @@ class TestBookAdmin(TestCase):
             "authors": "F. Scott Fitzgerald",
             "cover": "Soft",
             "inventory": 10,
-            "daily_fee": "3.00"
+            "daily_fee": "3.00",
         }
         url = reverse("book:book-detail", args=[self.book.id])
         res = self.client.put(url, update_payload)
@@ -49,6 +49,7 @@ class TestBookAdmin(TestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Book.objects.filter(id=self.book.id).exists())
 
+
 class TestBookNonAdmin(TestCase):
     def setUp(self):
         self.client = APIClient()
@@ -62,7 +63,7 @@ class TestBookNonAdmin(TestCase):
             "authors": "test",
             "cover": "Hard",
             "inventory": 5,
-            "daily_fee": "2.50"
+            "daily_fee": "2.50",
         }
 
     def test_non_admin_user_create_book_forbidden(self):

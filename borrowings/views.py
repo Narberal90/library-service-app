@@ -1,9 +1,5 @@
-from datetime import datetime, date
-
-from django.template.context_processors import request
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
-from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
 from books.permissions import IsAdminOrIfAuthenticatedPostAndReadOnly
