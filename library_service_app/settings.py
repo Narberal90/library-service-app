@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "books",
     "users",
     "borrowings",
+    "borrow_payment",
     "drf_spectacular",
     "borrow_payment",
 ]
@@ -131,12 +132,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "books.permissions.IsAdminOrIfAuthenticatedReadOnly",
-    ],
+    # "DEFAULT_AUTHENTICATION_CLASSES": [
+    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
+    # ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "books.permissions.IsAdminOrIfAuthenticatedReadOnly",
+    # ],
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle"
@@ -165,3 +166,6 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
 }
+
+STRIPE_SECRET_KEY = "sk_test_51QBEbHJwyg37szRjLp3nVrsOIz8SpHdslgeKUUDkNWHkBp4gckF0DQoutDvLCUWiPFE38eBCW7Unxnmu7YR2lM5900p53GeANj"
+STRIPE_PUBLIC_KEY = "pk_test_51QBEbHJwyg37szRjKEARE7LJKI0yEIsa5lFU9F5x7q6OCnrPCGfqVCW346N4b7s046muh1XyF2RPW9TGMmE3Wwhf00GZQtTkuc"
