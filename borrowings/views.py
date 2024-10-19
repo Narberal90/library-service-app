@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
+from borrowings.paginators import BorrowingsPagination
 from books.permissions import IsAdminOrIfAuthenticatedPostAndReadOnly
 from borrowings.models import Borrowing
 from borrowings.serializers import (
@@ -16,6 +16,7 @@ class BorrowingViewSet(viewsets.ModelViewSet):
     queryset = Borrowing.objects.all()
     serializer_class = BorrowingSerializer
     permission_classes = [IsAdminOrIfAuthenticatedPostAndReadOnly]
+    pagination_class = BorrowingsPagination
 
     def perform_create(self, serializer):
         user = self.request.user
