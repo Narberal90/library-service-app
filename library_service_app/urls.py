@@ -36,5 +36,8 @@ urlpatterns = [
         "api/doc/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"
     ),
     path("api/users/", include("users.urls", namespace="users")),
-    path("api/library/", include("books.urls", namespace="book")),
+    path("api/books/", include("books.urls", namespace="book")),
+    path("api/borrowings/", include("borrowings.urls", namespace="borrowing")),
+
+    # path("api/library/", include("books.urls", namespace="book")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
