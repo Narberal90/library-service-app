@@ -24,7 +24,6 @@ class BorrowingSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("No available copies for borrowing.")
         book.inventory -= 1
         book.save()
-        print("я тут")
         return super().create(validated_data)
 
 
