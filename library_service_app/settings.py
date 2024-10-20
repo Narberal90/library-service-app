@@ -9,9 +9,14 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -132,12 +137,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    # "DEFAULT_AUTHENTICATION_CLASSES": [
-    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
-    # ],
-    # "DEFAULT_PERMISSION_CLASSES": [
-    #     "books.permissions.IsAdminOrIfAuthenticatedReadOnly",
-    # ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "books.permissions.IsAdminOrIfAuthenticatedReadOnly",
+    ],
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle"
@@ -167,5 +172,5 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
 }
 
-STRIPE_SECRET_KEY = "sk_test_51QBEbHJwyg37szRjLp3nVrsOIz8SpHdslgeKUUDkNWHkBp4gckF0DQoutDvLCUWiPFE38eBCW7Unxnmu7YR2lM5900p53GeANj"
-STRIPE_PUBLIC_KEY = "pk_test_51QBEbHJwyg37szRjKEARE7LJKI0yEIsa5lFU9F5x7q6OCnrPCGfqVCW346N4b7s046muh1XyF2RPW9TGMmE3Wwhf00GZQtTkuc"
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
