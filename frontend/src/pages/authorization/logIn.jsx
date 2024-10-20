@@ -17,7 +17,7 @@ const Login = () => {
         try {
             const data = await login(email, password)
             if (data){
-                navigate("/")
+                navigate("/books")
             }
         }
         catch (error) {

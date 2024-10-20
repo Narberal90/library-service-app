@@ -1,0 +1,40 @@
+.book_detail_page{
+    width: 1200px;
+    height: auto;
+    padding-top: 2rem;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    /*background-color: #dfdfdf;*/
+    justify-content: center;
+    gap: 2rem;
+}
+
+.book_detail_content{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.book_title{
+    font-size: 28px;
+}
+
+.book_authors{
+    font-weight: bold;
+}
+
+.book_content{
+    display: flex;
+    gap: 2rem;
+}
+
+.book_content span{
+    font-weight: 500;
+}
+
+.book_btns{
+    display: flex;
+    margin-top: 4rem;
+    gap: 2rem;
+}

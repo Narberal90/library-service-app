@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from  "react-router-dom"
 import { verifyToken } from "../apiService";
 import axios from "axios";
 import Layout from "../components/Layout";
@@ -29,7 +30,7 @@ const MainPage = () => {
     useEffect(() => {
         const getBooks = async () => {
             try{
-                 const response = await axios.get(`${API_URL}/library/books/`)
+                const response = await axios.get(`${API_URL}/library/books/`)
                 setBooks(response.data)
             }
             catch{
@@ -53,7 +54,9 @@ const MainPage = () => {
             <FilterSort />
             <ul className="list_of_books">
                 {books.map(book => (
-                    <li className="book_item" key={book.id}>{book.title}</li>
+                    <Link to={`/books/${book.id}`} state={{ state: book }} className="book_item" key={book.id}>
+                        {book.title}
+                    </Link>
                 ))}
             </ul>
         </Layout>
