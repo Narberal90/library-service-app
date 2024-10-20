@@ -9,11 +9,9 @@ export const login = async (email, password) => {
             password,
         });
 
-        // Проверяем, что токены действительно есть в ответе
         if (response.data && response.data.access && response.data.refresh) {
             console.log('Login successful:', response.data);
 
-            // Записываем токены в localStorage
             localStorage.setItem('accessToken', response.data.access);
             localStorage.setItem('refreshToken', response.data.refresh);
             return response.data;
@@ -23,18 +21,15 @@ export const login = async (email, password) => {
         }
     } catch (error) {
         if (error.response) {
-            // Сервер ответил с ошибкой (например, 400 или 500)
             console.error('Error response from server:', error.response.data);
             console.error('Status code:', error.response.status);
             console.error('Headers:', error.response.headers);
         } else if (error.request) {
-            // Запрос был отправлен, но ответа нет
             console.error('No response received:', error.request);
         } else {
-            // Ошибка при настройке запроса
             console.error('Error during request setup:', error.message);
         }
-        throw error; // Пробрасываем ошибку для обработки на уровне UI
+        throw error;
     }
 };
 
