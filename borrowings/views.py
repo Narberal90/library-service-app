@@ -60,7 +60,7 @@ class BorrowingViewSet(
 
         if book_title:
             queryset = queryset.filter(book__title__icontains=book_title)
-        return queryset
+        return queryset.distinct()
 
     def get_serializer_class(self):
         if self.action == "list":
