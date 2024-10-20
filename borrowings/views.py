@@ -11,7 +11,7 @@ from borrowings.serializers import (
     BorrowingDetailSerializer,
     ReturnBookSerializer,
 )
-from borrow_payment.payment_management import create_checkout_session
+from borrow_payment.payment_management import manage_checkout_session
 
 
 class BorrowingViewSet(
@@ -30,7 +30,7 @@ class BorrowingViewSet(
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             borrowing = self.perform_create(serializer)
-            create_checkout_session(borrowing)
+            manage_checkout_session(borrowing)
             headers = self.get_success_headers(serializer.data)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
