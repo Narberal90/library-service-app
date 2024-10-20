@@ -48,7 +48,14 @@ class Borrowing(models.Model):
         if self.actual_return_date:
             raise ValidationError("This borrowing has already been returned.")
 
+        if self.payment.status != "Paid":
+            raise ValidationError("This borrowing has to be paid first.")
+
         self.actual_return_date = date.today()
         self.book.inventory += 1
         self.book.save()
         self.save()
+
+    def pay(self):
+        self.payment.status = "Paid"
+        self.payment.save()
