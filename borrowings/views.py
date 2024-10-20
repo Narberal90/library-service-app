@@ -1,4 +1,5 @@
-from rest_framework import viewsets, status
+from django.db import transaction
+from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from borrowings.paginators import BorrowingsPagination
@@ -10,17 +11,33 @@ from borrowings.serializers import (
     BorrowingDetailSerializer,
     ReturnBookSerializer,
 )
+from borrow_payment.payment_management import create_checkout_session
 
 
-class BorrowingViewSet(viewsets.ModelViewSet):
+class BorrowingViewSet(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin
+):
     queryset = Borrowing.objects.all()
     serializer_class = BorrowingSerializer
     permission_classes = [IsAdminOrIfAuthenticatedPostAndReadOnly]
     pagination_class = BorrowingsPagination
 
+    def create(self, request, *args, **kwargs):
+        with transaction.atomic():
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            borrowing = self.perform_create(serializer)
+            create_checkout_session(borrowing)
+            headers = self.get_success_headers(serializer.data)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     def perform_create(self, serializer):
         user = self.request.user
-        serializer.save(user=user)
+        return serializer.save(user=user)
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -31,7 +48,6 @@ class BorrowingViewSet(viewsets.ModelViewSet):
         user_id = self.request.query_params.get("user_id")
         is_active = self.request.query_params.get("is_active")
         book_title = self.request.query_params.get("book_title")
-        print(self.request.user)
 
         if self.request.user.is_staff and user_id:
             queryset = queryset.filter(user_id=user_id)
@@ -51,18 +67,22 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             return BorrowingListSerializer
         if self.action == "retrieve":
             return BorrowingDetailSerializer
-        if self.action == "return_borrowing":
+        if self.action == "pay_return_borrowing":
             return ReturnBookSerializer
         return BorrowingSerializer
 
-    @action(detail=True, methods=["post"], url_path="return")
-    def return_borrowing(self, request, pk=None):
+    @action(detail=True, methods=["post"], url_path="pay-return")
+    def pay_return_borrowing(self, request, pk=None):
         borrowing = self.get_object()
         serializer = self.get_serializer(borrowing, data=request.data)
-        print(self.serializer_class.__name__)
-        if serializer.is_valid():
+
+        serializer.is_valid(raise_exception=True)
+        query_session_id = request.query_params.get("session_id")
+
+        if query_session_id == borrowing.payment.session_id:
+            borrowing.pay()
+        else:
             borrowing.return_book()
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data, status=status.HTTP_200_OK)
