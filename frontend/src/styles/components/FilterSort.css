@@ -1,0 +1,7 @@
+.filter_sort_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    padding: 1.5rem;
+}

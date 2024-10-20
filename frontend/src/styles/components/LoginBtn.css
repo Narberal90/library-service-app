@@ -1,0 +1,13 @@
+.login_btn{
+    background: transparent;
+    border: 1px solid #2C4246;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: all .2s linear;
+}
+
+.login_btn:hover{
+    background-color: #2C4246;
+    color: white;
+    transition: all .2s linear;
+}

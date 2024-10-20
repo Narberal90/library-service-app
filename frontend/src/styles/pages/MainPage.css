@@ -1,0 +1,15 @@
+.list_of_books{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.book_item{
+    background-color: #ededed;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.book_item:hover{
+    background-color: #dfdfdf;
+}

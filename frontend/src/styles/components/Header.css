@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+.header_container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.5rem 0;
+    background-color: #2C4246;
+    color: white;
+}
+
+.logo{
+    font-size: 24px;
+}
+
+.logo span{
+    color: #E9D700;
+}
+
+.link_container{
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    font-size: 18px;
+}
+
+.nav_links{
+    color: white;
+    text-decoration: none;
+}
+
+.user{
+    display: flex;
+    gap: 1rem;
+}
