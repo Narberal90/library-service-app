@@ -26,7 +26,7 @@ class Book(models.Model):
     )
     inventory = models.IntegerField()
     daily_fee = models.DecimalField(decimal_places=2, max_digits=6)
-    image = models.ImageField(null=True, upload_to=book_image_path)
+    image = models.ImageField(null=True, blank=True, upload_to=book_image_path)
 
     def __str__(self):
         return f"{self.title} ({self.authors}), available: {self.inventory}"
