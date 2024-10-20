@@ -9,8 +9,8 @@ const Header = () => {
             <article className="nav">
                 <nav className="link_container">
                     <a className="nav_links" href="#">books</a>
-                    <a className="nav_links" href="#">authors</a>
-                    <a className="nav_links" href="#">genres</a>
+                    <a className="nav_links" href="#">borrowings</a>
+                    <a className="nav_links" href="#">payments</a>
                 </nav>
             </article>
             <article className="user">
