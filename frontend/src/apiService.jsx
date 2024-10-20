@@ -7,13 +7,15 @@ export const login = async (email, password) => {
         const response = await axios.post(`${API_URL}/users/token/`, {
             email,
             password,
-        });
+        },);
 
         if (response.data && response.data.access && response.data.refresh) {
             console.log('Login successful:', response.data);
 
             localStorage.setItem('accessToken', response.data.access);
             localStorage.setItem('refreshToken', response.data.refresh);
+
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`
             return response.data;
         } else {
             console.error('Tokens not found in response:', response.data);

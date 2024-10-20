@@ -15,17 +15,17 @@ const MainPage = () => {
     const [error, setError] = useState(null)
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     const checkAuth = async () => {
-    //         try {
-    //             await verifyToken()
-    //         }
-    //         catch (error) {
-    //             navigate("/login")
-    //         }
-    //     }
-    //     checkAuth()
-    // }, [navigate])
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                await verifyToken()
+            }
+            catch (error) {
+                navigate("/login")
+            }
+        }
+        checkAuth()
+    }, [navigate])
     useEffect(() => {
         const getBooks = async () => {
             try{
@@ -46,7 +46,7 @@ const MainPage = () => {
         return <h1>Loading ...</h1>
     }
     if (error){
-        return <h1>Error</h1>
+        navigate("/login")
     }
     return (
         <Layout>
