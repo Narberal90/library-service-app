@@ -60,7 +60,7 @@ class AuthenticatedBookApi(TestCase):
         serializer = BookSerializer(books, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data, serializer.data)
+        self.assertEqual(res.data["results"], serializer.data)
 
     def test_retrieve_book_detail(self):
         book = sample_book()
