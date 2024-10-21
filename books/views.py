@@ -1,3 +1,5 @@
+from drf_spectacular.utils import extend_schema_view, extend_schema
+
 from books.paginators import BookPagination
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -10,7 +12,12 @@ from books.serializers import (
     BookRetrieveSerializer,
 )
 
-
+@extend_schema_view(
+    upload_image=extend_schema(
+        description="Upload an image for a specific book.",
+        request=BookImageSerializer,
+    )
+)
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
