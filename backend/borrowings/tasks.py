@@ -8,7 +8,7 @@ from celery import shared_task
 from borrow_payment.payment_management import manage_checkout_session
 from borrowings.models import Borrowing
 
-TELEGRAM_BOT_URL = "http://127.0.0.1:8002/send_message/"
+TELEGRAM_BOT_URL = "http://localhost:8008/send_message/"
 
 
 @shared_task

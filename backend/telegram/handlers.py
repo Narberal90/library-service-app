@@ -3,11 +3,11 @@ import os
 
 import requests
 
-from telegram.bot import bot
+from backend.telegram.bot import bot
 
 logger = logging.getLogger(__name__)
 
-API_URL = os.getenv("API_URL")
+API_URL = os.getenv("API_URL") + ""
 
 
 # Bot handler
