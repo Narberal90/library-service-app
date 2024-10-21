@@ -11,14 +11,15 @@ from borrowings.models import Borrowing
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-DOMAIN = "http://127.0.0.1:8001"
+DOMAIN = "http://localhost:8001"
 FINE_MULTIPLIER = Decimal(1.5)
 
 
 def manage_checkout_session(borrowing: Borrowing, fine: bool = False) -> Session:
-    money_to_pay = count_money_to_pay(borrowing)
-
     if fine:
+        days = days_overdue(borrowing)
+        money_to_pay = count_money_to_pay(borrowing, days)
+
         checkout_session = create_checkout_session(
             borrowing, money_to_pay * FINE_MULTIPLIER
         )
@@ -30,6 +31,9 @@ def manage_checkout_session(borrowing: Borrowing, fine: bool = False) -> Session
         borrowing.payment.save()
 
     else:
+        days = days_for_payment(borrowing)
+        money_to_pay = count_money_to_pay(borrowing, days)
+
         checkout_session = create_checkout_session(borrowing, money_to_pay)
         Payment.objects.create(
             borrowing=borrowing,
@@ -58,14 +62,20 @@ def create_checkout_session(borrowing: Borrowing, money_to_pay: Decimal) -> Sess
         mode="payment",
         cancel_url=DOMAIN + reverse("borrowing:borrowing-list"),
         success_url=DOMAIN
-        + reverse("payment:success-payment")
+        + reverse("success-payments")
         + f"?borrow={borrowing.id}"
         + "&session_id={CHECKOUT_SESSION_ID}",
     )
 
 
-def count_money_to_pay(borrowing: Borrowing) -> Decimal:
-    days = abs(borrowing.expected_return_date - date.today()).days
-    total = days * borrowing.book.daily_fee
+def count_money_to_pay(borrowing: Borrowing, days: int) -> Decimal:
 
-    return round(total, 2)
+    return round(days * borrowing.book.daily_fee, 2)
+
+
+def days_overdue(borrowing: Borrowing):
+    return abs(borrowing.borrow_date - date.today()).days
+
+
+def days_for_payment(borrowing: Borrowing):
+    return abs(borrowing.expected_return_date - borrowing.borrow_date).days
