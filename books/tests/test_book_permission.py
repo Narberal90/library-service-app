@@ -12,7 +12,7 @@ BOOK_URL = reverse("book:book-list")
 class TestBookAdmin(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = get_user_model().objects.create_superuser(
+        self.user = get_user_model().objects.create_user(
             email="TonyStark@gmail.com", password="TonyStarkHasTheHeart", is_staff=True
         )
         self.client.force_authenticate(self.user)
