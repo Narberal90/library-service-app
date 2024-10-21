@@ -22,7 +22,7 @@ def send_borrowing_notification(sender, instance, created, **kwargs):
             "text": message
         }
 
-        url = os.getenv("TELEGRAM_URL") + "/send_message/"
+        url = os.getenv("TELEGRAM_URL_SEND") + "/send_message/"
         with httpx.Client() as client:
 
             response = client.post(url, json=payload)

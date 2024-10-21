@@ -35,3 +35,38 @@ services:
       - "8008:8008"
     env_file:
       - .env
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: >
+      sh -c "python manage.py wait_for_db --wait 6 &&
+            celery -A library_service_app worker --loglevel=INFO -P eventlet"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      - library
+      - redis
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: >
+      sh -c "python manage.py wait_for_db --wait 6 &&
+            celery -A library_service_app beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      - library
+      - redis
