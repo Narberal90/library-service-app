@@ -1,19 +1,61 @@
 from django.db import transaction
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiParameter, extend_schema_view
+from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from borrowings.paginators import BorrowingsPagination
+
 from books.permissions import IsAdminOrIfAuthenticatedPostAndReadOnly
+from borrow_payment.payment_management import manage_checkout_session
 from borrowings.models import Borrowing
+from borrowings.paginators import BorrowingsPagination
 from borrowings.serializers import (
     BorrowingSerializer,
     BorrowingListSerializer,
     BorrowingDetailSerializer,
     ReturnBookSerializer,
 )
-from borrow_payment.payment_management import manage_checkout_session
 
 
+@extend_schema_view(
+    list=extend_schema(
+        description=(
+            "Lists all borrowings. Admins can see all borrowings, while authenticated users can only see "
+            "their own. Optionally, borrowings can be filtered by user_id, is_active, or book_title."
+        ),
+        parameters=[
+            OpenApiParameter(
+                name="user_id",
+                type=OpenApiTypes.INT,
+                description="Filter by user ID (admin only)",
+            ),
+            OpenApiParameter(
+                name="is_active",
+                type=OpenApiTypes.BOOL,
+                description="Filter by active borrowings. Use 'true' for active and 'false' for inactive borrowings, based on actual return date.",
+            ),
+            OpenApiParameter(
+                name="book_title",
+                type=OpenApiTypes.STR,
+                description="Filter by book title containing the entered text (case-insensitive search)",
+            ),
+        ],
+    ),
+    pay_return_borrowing=extend_schema(
+        description=(
+            "Allows users to mark a borrowing as returned. Optionally, if a 'session_id' matches, it triggers payment for any late returns."
+        ),
+        parameters=[
+            OpenApiParameter(
+                name="session_id",
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description="Payment session ID",
+            ),
+        ],
+    )
+)
 class BorrowingViewSet(
     viewsets.GenericViewSet,
     mixins.CreateModelMixin,

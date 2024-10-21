@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -28,7 +29,9 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user
 
-
+@extend_schema(
+    description="This endpoint allows users to update their Telegram ID using their email.",
+)
 class UpdateTelegramIDView(APIView):
     permission_classes = [AllowAny]
 
