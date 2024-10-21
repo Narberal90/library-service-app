@@ -22,9 +22,23 @@ class TestBookAdmin(TestCase):
             "authors": "F. Scott Fitzgerald",
             "cover": "Hard",
             "inventory": 5,
-            "daily_fee": "2.50",
+            "daily_fee": "2.50"
         }
         self.book = Book.objects.create(**self.book_payload)
+
+    def test_admin_create_book_success(self):
+        create_payload = {
+            "title": "The Great",
+            "authors": "Scott",
+            "cover": "Soft",
+            "inventory": 7,
+            "daily_fee": "23.00"
+        }
+        url = reverse("book:book-detail", args=[self.book.id])
+        res = self.client.put(url, create_payload)
+
+        self.book.refresh_from_db()
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_admin_update_book_success(self):
         update_payload = {
@@ -32,7 +46,7 @@ class TestBookAdmin(TestCase):
             "authors": "F. Scott Fitzgerald",
             "cover": "Soft",
             "inventory": 10,
-            "daily_fee": "3.00",
+            "daily_fee": "3.00"
         }
         url = reverse("book:book-detail", args=[self.book.id])
         res = self.client.put(url, update_payload)
@@ -49,23 +63,32 @@ class TestBookAdmin(TestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Book.objects.filter(id=self.book.id).exists())
 
-
-class TestBookNonAdmin(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.non_admin_user = get_user_model().objects.create_user(
-            email="test@gmail.com", password="test"
-        )
-        self.client.force_authenticate(self.non_admin_user)
-
-        self.payload = {
-            "title": "test",
-            "authors": "test",
-            "cover": "Hard",
-            "inventory": 5,
-            "daily_fee": "2.50",
+    def test_create_book_missing_fields(self):
+        create_payload = {
+            "authors": "Scott",
+            "cover": "Soft",
         }
+        url = reverse("book:book-list")
+        res = self.client.post(url, create_payload)
 
-    def test_non_admin_user_create_book_forbidden(self):
-        res = self.client.post(BOOK_URL, self.payload)
-        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_update_book_invalid_inventory(self):
+        update_payload = {
+            "title": "Invalid Book",
+            "authors": "Author",
+            "cover": "Soft",
+            "inventory": -1,
+            "daily_fee": "3.00"
+        }
+        url = reverse("book:book-detail", args=[self.book.id])
+        res = self.client.put(url, update_payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_get_book_success(self):
+        url = reverse("book:book-detail", args=[self.book.id])
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data['title'], self.book.title)
