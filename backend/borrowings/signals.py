@@ -1,5 +1,3 @@
-import asyncio
-
 import httpx
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -22,12 +20,8 @@ def send_borrowing_notification(sender, instance, created, **kwargs):
             "text": message
         }
 
-        url = "http://localhost:8000/send_message/"
-
-        async def send_message():
-            async with httpx.AsyncClient() as client:
-                response = await client.post(url, json=payload)
-                if response.status_code != 200:
-                    print("Error sending message:", response.json())
-
-        asyncio.run(send_message())
+        url = "http://127.0.0.1:8002/send_message/"
+        with httpx.Client() as client:
+            response = client.post(url, json=payload)
+            if response.status_code != 200:
+                print("Error sending message:", response.json())

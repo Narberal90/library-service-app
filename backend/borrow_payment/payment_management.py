@@ -11,7 +11,7 @@ from borrowings.models import Borrowing
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-DOMAIN = "http://localhost:8000"
+DOMAIN = "http://127.0.0.1:8001"
 FINE_MULTIPLIER = Decimal(1.5)
 
 
