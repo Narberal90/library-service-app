@@ -24,8 +24,6 @@ from drf_spectacular.views import (
     SpectacularRedocView,
 )
 
-from borrow_payment.views import success_session
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/doc/", SpectacularAPIView.as_view(), name="schema"),
@@ -39,6 +37,4 @@ urlpatterns = [
     ),
     path("api/users/", include("users.urls", namespace="users")),
     path("api/library/", include("books.urls", namespace="book")),
-    path("api/borrowings/", include("borrowings.urls", namespace="borrowing")),
-    path("api/borrow-payments/success", success_session, name="success-payments")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
