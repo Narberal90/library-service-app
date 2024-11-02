@@ -4,11 +4,11 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from books.models import Book
-from users.models import User
+from library_service_app.settings import AUTH_USER_MODEL
 
 
 class Borrowing(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     borrow_date = models.DateField(auto_now_add=True)
     expected_return_date = models.DateField()
