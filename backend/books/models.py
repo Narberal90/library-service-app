@@ -3,6 +3,8 @@ from decimal import Decimal
 from django.db import models
 from rest_framework.exceptions import ValidationError
 
+from books.utils import book_image_path
+
 
 class Book(models.Model):
     class CoverChoice(models.TextChoices):
