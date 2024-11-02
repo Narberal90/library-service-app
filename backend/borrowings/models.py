@@ -17,7 +17,9 @@ class Borrowing(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=models.Q(expected_return_date__gt=models.F("borrow_date")),
+                check=models.Q(
+                    expected_return_date__gt=models.F("borrow_date")
+                ),
                 name="expected_return_after_borrow",
             ),
             models.CheckConstraint(
@@ -34,7 +36,10 @@ class Borrowing(models.Model):
         verbose_name = "Borrowing"
 
     def clean(self):
-        if self.expected_return_date and self.expected_return_date <= self.borrow_date:
+        if (
+            self.expected_return_date
+            and self.expected_return_date <= self.borrow_date
+        ):
             raise ValidationError(
                 "The expected return date must be after the borrow date."
             )

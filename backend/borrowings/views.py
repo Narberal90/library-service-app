@@ -6,7 +6,9 @@ from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from library_service_app.permissions import IsAdminOrIfAuthenticatedPostAndReadOnly
+from library_service_app.permissions import (
+    IsAdminOrIfAuthenticatedPostAndReadOnly
+)
 from borrow_payment.payment_management import manage_checkout_session
 from borrowings.models import Borrowing
 from borrowings.paginators import BorrowingsPagination
@@ -21,8 +23,10 @@ from borrowings.serializers import (
 @extend_schema_view(
     list=extend_schema(
         description=(
-            "Lists all borrowings. Admins can see all borrowings, while authenticated users can only see "
-            "their own. Optionally, borrowings can be filtered by user_id, is_active, or book_title."
+            "Lists all borrowings. Admins can see all borrowings, "
+            "while authenticated users can only see their own. "
+            "Optionally, borrowings can be filtered by "
+            "user_id, is_active, or book_title."
         ),
         parameters=[
             OpenApiParameter(
@@ -33,18 +37,26 @@ from borrowings.serializers import (
             OpenApiParameter(
                 name="is_active",
                 type=OpenApiTypes.BOOL,
-                description="Filter by active borrowings. Use 'true' for active and 'false' for inactive borrowings, based on actual return date.",
+                description=(
+                    "Filter by active borrowings. "
+                    "Use 'true' for active "
+                    "and 'false' for inactive borrowings, "
+                    "based on actual return date."
+                ),
             ),
             OpenApiParameter(
                 name="book_title",
                 type=OpenApiTypes.STR,
-                description="Filter by book title containing the entered text (case-insensitive search)",
+                description="Filter by book title containing the entered text "
+                            "(case-insensitive search)",
             ),
         ],
     ),
     pay_return_borrowing=extend_schema(
         description=(
-            "Allows users to mark a borrowing as returned. Optionally, if a 'session_id' matches, it triggers payment for any late returns."
+            "Allows users to mark a borrowing as returned. "
+            "Optionally, if a 'session_id' matches, "
+            "it triggers payment for any late returns."
         ),
         parameters=[
             OpenApiParameter(
@@ -75,7 +87,11 @@ class BorrowingViewSet(
             manage_checkout_session(borrowing)
             headers = self.get_success_headers(serializer.data)
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED,
+                headers=headers
+            )
 
     def perform_create(self, serializer):
         user = self.request.user

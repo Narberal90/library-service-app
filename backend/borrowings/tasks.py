@@ -31,7 +31,10 @@ def check_expected_return_dates():
     )
 
     for borrowing in borrowings_due_tomorrow:
-        send_telegram_notification(borrowing.user.telegram_id, borrowing.book.title)
+        send_telegram_notification(
+            borrowing.user.telegram_id,
+            borrowing.book.title
+        )
 
 
 def send_telegram_notification(telegram_id, book_title):

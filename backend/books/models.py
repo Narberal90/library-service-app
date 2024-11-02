@@ -48,4 +48,7 @@ class Book(models.Model):
         update_fields=None,
     ):
         self.full_clean()
-        return super(Book, self).save(force_insert, force_update, using, update_fields)
+        return (
+            super(Book, self)
+            .save(force_insert, force_update, using, update_fields)
+        )

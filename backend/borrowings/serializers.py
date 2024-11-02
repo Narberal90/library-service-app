@@ -25,7 +25,9 @@ class BorrowingSerializer(serializers.ModelSerializer):
         print(f"Inventory before borrowing: {book.inventory}")
         print(book.inventory <= 0)
         if book.inventory <= 0:
-            raise serializers.ValidationError("No available copies for borrowing.")
+            raise serializers.ValidationError(
+                "No available copies for borrowing."
+            )
         book.inventory -= 1
         book.save()
         return super().create(validated_data)

@@ -7,7 +7,9 @@ from rest_framework import viewsets
 from borrow_payment.models import Payment
 from borrow_payment.serializers import PaymentListSerializer, PaymentSerializer
 from borrowings.models import Borrowing
-from library_service_app.permissions import IsAdminOrIfAuthenticatedPostAndReadOnly
+from library_service_app.permissions import (
+    IsAdminOrIfAuthenticatedPostAndReadOnly
+)
 
 
 def success_session(request: HttpRequest):

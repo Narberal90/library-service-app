@@ -1,11 +1,9 @@
-import os
-
-import httpx
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from borrowings.models import Borrowing
 from borrowings.tasks import send_borrowing_notification
+
 
 @receiver(post_save, sender=Borrowing)
 def borrowing_post_save(sender, instance, created, **kwargs):

@@ -12,6 +12,7 @@ from books.serializers import (
     BookRetrieveSerializer,
 )
 
+
 @extend_schema_view(
     upload_image=extend_schema(
         description="Upload an image for a specific book.",

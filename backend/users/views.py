@@ -1,5 +1,5 @@
-from django.contrib.auth.models import User
-from drf_spectacular.utils import extend_schema_view, extend_schema
+from django.contrib.auth import get_user_model
+from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -9,7 +9,7 @@ from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
 from users.serializers import UserSerializer, AuthTokenSerializer
-from .models import User
+from library_service_app.settings import AUTH_USER_MODEL
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -29,8 +29,10 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user
 
+
 @extend_schema(
-    description="This endpoint allows users to update their Telegram ID using their email.",
+    description="This endpoint allows users "
+                "to update their Telegram ID using their email.",
 )
 class UpdateTelegramIDView(APIView):
     permission_classes = [AllowAny]
@@ -40,14 +42,14 @@ class UpdateTelegramIDView(APIView):
         telegram_id = request.data.get("telegram_id")
 
         try:
-            user = User.objects.get(email=email)
+            user = get_user_model().objects.get(email=email)
             user.telegram_id = telegram_id
             user.save()
             return Response(
                 {"message": "Telegram ID updated!"},
                 status=status.HTTP_200_OK
             )
-        except User.DoesNotExist:
+        except AUTH_USER_MODEL.DoesNotExist:
             return Response(
                 {"error": "No user with this email address was found."},
                 status=status.HTTP_404_NOT_FOUND
