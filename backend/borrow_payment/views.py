@@ -7,6 +7,7 @@ from rest_framework import viewsets
 from borrow_payment.models import Payment
 from borrow_payment.serializers import PaymentListSerializer, PaymentSerializer
 from borrowings.models import Borrowing
+from library_service_app.permissions import IsAdminOrIfAuthenticatedPostAndReadOnly
 
 
 def success_session(request: HttpRequest):
@@ -26,6 +27,7 @@ def success_session(request: HttpRequest):
 
 class PaymentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Payment.objects.all().select_related()
+    permission_classes = [IsAdminOrIfAuthenticatedPostAndReadOnly]
 
     def get_serializer_class(self):
         if self.action == "list":
