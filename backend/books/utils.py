@@ -3,8 +3,6 @@ import uuid
 
 from django.utils.text import slugify
 
-from books.models import Book
-
 
 def book_image_path(instance: "Book", filename: str) -> pathlib.Path:
     filename = (
