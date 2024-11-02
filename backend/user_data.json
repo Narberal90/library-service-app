@@ -1,0 +1,20 @@
+[
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$4ll2oZXPJjh4ZME6Ni7WNq$j96rl1/8RKOzirImRgGd/3FRxk6Itq+8wcJAWKUCKPg=",
+      "last_login": null,
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-11-02T15:09:53.081Z",
+      "email": "admin@admin.com",
+      "telegram_id": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
