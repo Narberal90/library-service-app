@@ -1,3 +1,4 @@
+import os
 from datetime import date
 from decimal import Decimal
 
@@ -11,7 +12,7 @@ from borrowings.models import Borrowing
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-DOMAIN = "http://localhost:8080"
+DOMAIN = os.getenv("SERVER_DOMAIN")
 FINE_MULTIPLIER = Decimal(1.5)
 
 
