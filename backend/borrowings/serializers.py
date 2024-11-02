@@ -43,6 +43,11 @@ class BorrowingListSerializer(serializers.ModelSerializer):
         source="payment",
         slug_field="type"
     )
+    payment_id = serializers.SlugRelatedField(
+        read_only=True,
+        source="payment",
+        slug_field="id"
+    )
 
     class Meta:
         model = Borrowing
@@ -53,7 +58,8 @@ class BorrowingListSerializer(serializers.ModelSerializer):
             "expected_return_date",
             "actual_return_date",
             "payment_status",
-            "payment_type"
+            "payment_type",
+            "payment_id",
         ]
 
     def get_book_title(self, obj):
