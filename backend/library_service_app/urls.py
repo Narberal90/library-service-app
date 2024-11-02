@@ -37,4 +37,6 @@ urlpatterns = [
     ),
     path("api/users/", include("users.urls", namespace="users")),
     path("api/library/", include("books.urls", namespace="book")),
+    path("api/borrowings/", include("borrowings.urls", namespace="borrowing")),
+    path("api/borrow-payments/", include("borrow_payment.urls", namespace="borrow_payment")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
