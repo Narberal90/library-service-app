@@ -25,4 +25,3 @@ class Command(BaseCommand):
                 return
 
         self.stdout.write(self.style.ERROR("Failed to find database."))
-

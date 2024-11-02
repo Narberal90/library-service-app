@@ -1,3 +1,4 @@
+import os
 from datetime import date
 from decimal import Decimal
 
@@ -11,11 +12,15 @@ from borrowings.models import Borrowing
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-DOMAIN = "http://localhost:8080"
+DOMAIN = os.getenv("SERVER_DOMAIN")
 FINE_MULTIPLIER = Decimal(1.5)
 
 
-def manage_checkout_session(borrowing: Borrowing, fine: bool = False) -> Session:
+def manage_checkout_session(
+    borrowing: Borrowing,
+    fine: bool = False
+) -> Session:
+
     if fine:
         days = days_overdue(borrowing)
         money_to_pay = count_money_to_pay(borrowing, days)
@@ -45,7 +50,11 @@ def manage_checkout_session(borrowing: Borrowing, fine: bool = False) -> Session
     return checkout_session
 
 
-def create_checkout_session(borrowing: Borrowing, money_to_pay: Decimal) -> Session:
+def create_checkout_session(
+    borrowing: Borrowing,
+    money_to_pay: Decimal
+) -> Session:
+
     return stripe.checkout.Session.create(
         line_items=[
             {
@@ -53,7 +62,8 @@ def create_checkout_session(borrowing: Borrowing, money_to_pay: Decimal) -> Sess
                     "currency": "usd",
                     "unit_amount": int(money_to_pay * 100),
                     "product_data": {
-                        "name": f"{borrowing.book.title} ({borrowing.book.authors})"
+                        "name": f"{borrowing.book.title} "
+                                f"({borrowing.book.authors})"
                     },
                 },
                 "quantity": 1,
@@ -62,20 +72,19 @@ def create_checkout_session(borrowing: Borrowing, money_to_pay: Decimal) -> Sess
         mode="payment",
         cancel_url=DOMAIN + reverse("borrowing:borrowing-list"),
         success_url=DOMAIN
-        + reverse("success-payments")
+        + reverse("borrow_payment:success-payment")
         + f"?borrow={borrowing.id}"
         + "&session_id={CHECKOUT_SESSION_ID}",
     )
 
 
 def count_money_to_pay(borrowing: Borrowing, days: int) -> Decimal:
-
     return round(days * borrowing.book.daily_fee, 2)
 
 
-def days_overdue(borrowing: Borrowing):
+def days_overdue(borrowing: Borrowing) -> int:
     return abs(borrowing.borrow_date - date.today()).days
 
 
-def days_for_payment(borrowing: Borrowing):
+def days_for_payment(borrowing: Borrowing) -> int:
     return abs(borrowing.expected_return_date - borrowing.borrow_date).days

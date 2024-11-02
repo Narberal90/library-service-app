@@ -6,4 +6,17 @@ from borrow_payment.models import Payment
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
-        fields = ["id", "status", "type", "session_url", "money_to_pay"]
+        fields = [
+            "id",
+            "status",
+            "type",
+            "session_url",
+            "money_to_pay",
+            "borrowing_id"
+        ]
+
+
+class PaymentListSerializer(PaymentSerializer):
+    class Meta:
+        model = Payment
+        fields = ["id", "status", "money_to_pay", "borrowing_id"]

@@ -4,11 +4,11 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from books.models import Book
-from users.models import User
+from library_service_app.settings import AUTH_USER_MODEL
 
 
 class Borrowing(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     borrow_date = models.DateField(auto_now_add=True)
     expected_return_date = models.DateField()
@@ -17,7 +17,9 @@ class Borrowing(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=models.Q(expected_return_date__gt=models.F("borrow_date")),
+                check=models.Q(
+                    expected_return_date__gt=models.F("borrow_date")
+                ),
                 name="expected_return_after_borrow",
             ),
             models.CheckConstraint(
@@ -34,7 +36,10 @@ class Borrowing(models.Model):
         verbose_name = "Borrowing"
 
     def clean(self):
-        if self.expected_return_date and self.expected_return_date <= self.borrow_date:
+        if (
+            self.expected_return_date
+            and self.expected_return_date <= self.borrow_date
+        ):
             raise ValidationError(
                 "The expected return date must be after the borrow date."
             )
@@ -55,7 +60,3 @@ class Borrowing(models.Model):
         self.book.inventory += 1
         self.book.save()
         self.save()
-
-    def pay(self):
-        self.payment.status = "Paid"
-        self.payment.save()

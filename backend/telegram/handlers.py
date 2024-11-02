@@ -13,7 +13,10 @@ API_URL = os.getenv("API_URL")
 # Bot handler
 @bot.message_handler(commands=["start"])
 def send_welcome(message):
-    bot.reply_to(message, "👋 Hello! Please enter your email so we can contact you.")
+    bot.reply_to(
+        message,
+        "👋 Hello! Please enter your email so we can contact you."
+    )
 
 
 @bot.message_handler(func=lambda message: True)
@@ -29,5 +32,8 @@ def handle_email(message):
     if response.status_code == 200:
         bot.reply_to(message, "Thank you, now we can notify you of updates")
     else:
-        bot.reply_to(message, "It looks like you entered an incorrect email address,"
-                              " or you haven't registered on the site yet.")
+        bot.reply_to(
+            message,
+            "It looks like you entered an incorrect email address,"
+            " or you haven't registered on the site yet."
+        )

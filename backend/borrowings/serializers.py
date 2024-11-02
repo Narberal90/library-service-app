@@ -25,7 +25,9 @@ class BorrowingSerializer(serializers.ModelSerializer):
         print(f"Inventory before borrowing: {book.inventory}")
         print(book.inventory <= 0)
         if book.inventory <= 0:
-            raise serializers.ValidationError("No available copies for borrowing.")
+            raise serializers.ValidationError(
+                "No available copies for borrowing."
+            )
         book.inventory -= 1
         book.save()
         return super().create(validated_data)
@@ -43,6 +45,11 @@ class BorrowingListSerializer(serializers.ModelSerializer):
         source="payment",
         slug_field="type"
     )
+    payment_id = serializers.SlugRelatedField(
+        read_only=True,
+        source="payment",
+        slug_field="id"
+    )
 
     class Meta:
         model = Borrowing
@@ -53,7 +60,8 @@ class BorrowingListSerializer(serializers.ModelSerializer):
             "expected_return_date",
             "actual_return_date",
             "payment_status",
-            "payment_type"
+            "payment_type",
+            "payment_id",
         ]
 
     def get_book_title(self, obj):
