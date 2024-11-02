@@ -55,7 +55,3 @@ class Borrowing(models.Model):
         self.book.inventory += 1
         self.book.save()
         self.save()
-
-    def pay(self):
-        self.payment.status = "Paid"
-        self.payment.save()

@@ -6,7 +6,7 @@ from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from books.permissions import IsAdminOrIfAuthenticatedPostAndReadOnly
+from library_service_app.permissions import IsAdminOrIfAuthenticatedPostAndReadOnly
 from borrow_payment.payment_management import manage_checkout_session
 from borrowings.models import Borrowing
 from borrowings.paginators import BorrowingsPagination
@@ -113,18 +113,14 @@ class BorrowingViewSet(
             return ReturnBookSerializer
         return BorrowingSerializer
 
-    @action(detail=True, methods=["post"], url_path="pay-return")
-    def pay_return_borrowing(self, request, pk=None):
+    @action(detail=True, methods=["post"], url_path="return")
+    def return_borrowing(self, request, pk=None):
         borrowing = self.get_object()
         serializer = self.get_serializer(borrowing, data=request.data)
 
         serializer.is_valid(raise_exception=True)
-        query_session_id = request.query_params.get("session_id")
 
-        if query_session_id == borrowing.payment.session_id:
-            borrowing.pay()
-        else:
-            borrowing.return_book()
-            serializer.save()
+        borrowing.return_book()
+        serializer.save()
 
         return Response(serializer.data, status=status.HTTP_200_OK)
