@@ -69,13 +69,12 @@ def create_checkout_session(borrowing: Borrowing, money_to_pay: Decimal) -> Sess
 
 
 def count_money_to_pay(borrowing: Borrowing, days: int) -> Decimal:
-
     return round(days * borrowing.book.daily_fee, 2)
 
 
-def days_overdue(borrowing: Borrowing):
+def days_overdue(borrowing: Borrowing) -> int:
     return abs(borrowing.borrow_date - date.today()).days
 
 
-def days_for_payment(borrowing: Borrowing):
+def days_for_payment(borrowing: Borrowing) -> int:
     return abs(borrowing.expected_return_date - borrowing.borrow_date).days
