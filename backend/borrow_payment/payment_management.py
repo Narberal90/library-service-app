@@ -62,7 +62,7 @@ def create_checkout_session(borrowing: Borrowing, money_to_pay: Decimal) -> Sess
         mode="payment",
         cancel_url=DOMAIN + reverse("borrowing:borrowing-list"),
         success_url=DOMAIN
-        + reverse("success-payments")
+        + reverse("borrow_payment:success-payment")
         + f"?borrow={borrowing.id}"
         + "&session_id={CHECKOUT_SESSION_ID}",
     )
