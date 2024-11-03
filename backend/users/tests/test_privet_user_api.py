@@ -62,6 +62,15 @@ class PrivetUserApiTests(TestCase):
         self.assertTrue(self.user.check_password(payload["password"]))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
+    def test_partial_update_user_profile(self):
+        """Test partially updating the user profile"""
+        payload = {"username": "partial_update_user"}
+        res = self.client.patch(ME_URL, payload)
+
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.username, payload["username"])
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
     def test_delete_user_profile(self):
         """Test deleting the user profile"""
         res = self.client.delete(ME_URL)
