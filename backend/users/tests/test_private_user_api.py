@@ -14,7 +14,7 @@ def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
 
-class PrivetUserApiTests(TestCase):
+class PrivateUserApiTests(TestCase):
     """TEST API requests that require authentication"""
 
     def setUp(self):
@@ -54,7 +54,7 @@ class PrivetUserApiTests(TestCase):
 
     def test_update_user_profile(self):
         """Test updating the user profile for authenticated user"""
-        payload = {"username": "new_user", "password": "goodpass"}
+        payload = {"email": "new_email@gmail.com", "password": "goodpass"}
 
         res = self.client.patch(ME_URL, payload)
 
@@ -64,12 +64,12 @@ class PrivetUserApiTests(TestCase):
 
     def test_partial_update_user_profile(self):
         """Test partially updating the user profile"""
-        payload = {"username": "partial_update_user"}
+        payload = {"email": "partial_update@gmail.com"}
         res = self.client.patch(ME_URL, payload)
 
         self.user.refresh_from_db()
-        self.assertEqual(self.user.username, payload["username"])
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.user.email, payload["email"])
 
     def test_delete_user_profile(self):
         """Test deleting the user profile"""

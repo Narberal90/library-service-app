@@ -34,6 +34,7 @@ class Borrowing(models.Model):
             ),
         ]
         verbose_name = "Borrowing"
+        ordering = ["id"]
 
     def clean(self):
         if (
