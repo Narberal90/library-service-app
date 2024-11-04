@@ -48,7 +48,7 @@ class TestBookAdmin(TestCase):
             "inventory": 10,
             "daily_fee": "3.00"
         }
-        url = reverse("book:book-create", args=[self.book.id])
+        url = reverse("book:book-detail", args=[self.book.id])
         res = self.client.put(url, update_payload)
 
         self.book.refresh_from_db()

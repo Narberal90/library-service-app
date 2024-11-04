@@ -14,7 +14,7 @@ def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
 
-class PrivetUSerApiTests(TestCase):
+class PrivetUserApiTests(TestCase):
     """TEST API requests that require authentication"""
 
     def setUp(self):
@@ -39,8 +39,15 @@ class PrivetUSerApiTests(TestCase):
             },
         )
 
+    def test_retrieve_profile_unauthenticated(self):
+        """Test retrieving profile without authentication returns 401"""
+        self.client.force_authenticate(user=None)
+        res = self.client.get(ME_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
     def test_post_me_not_allowed(self):
-        """Test that POST is not allowed on the me url"""
+        """Test that POST is not allowed on me url"""
         resp = self.client.post(ME_URL, {})
 
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -54,3 +61,18 @@ class PrivetUSerApiTests(TestCase):
         self.user.refresh_from_db()
         self.assertTrue(self.user.check_password(payload["password"]))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_partial_update_user_profile(self):
+        """Test partially updating the user profile"""
+        payload = {"username": "partial_update_user"}
+        res = self.client.patch(ME_URL, payload)
+
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.username, payload["username"])
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_delete_user_profile(self):
+        """Test deleting the user profile"""
+        res = self.client.delete(ME_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
