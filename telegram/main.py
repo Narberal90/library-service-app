@@ -7,8 +7,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from backend.telegram.bot import bot
-import backend.telegram.handlers
+from telegram.bot import bot
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

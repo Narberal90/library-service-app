@@ -3,7 +3,7 @@ import os
 
 import requests
 
-from backend.telegram.bot import bot
+from telegram.bot import bot
 
 logger = logging.getLogger(__name__)
 
