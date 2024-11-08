@@ -8,6 +8,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 from telegram.bot import bot
+import telegram.handlers
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -24,6 +26,7 @@ def start_bot_polling():
 
 @app.on_event("startup")
 async def startup_event():
+    print("startup_event")
     threading.Thread(target=start_bot_polling, daemon=True).start()
 
 
